@@ -5,55 +5,35 @@ import java.util.Scanner;
 /**
  * @author Mack_TB
  * @since 23/03/2024
- * @version 1.0.2
+ * @version 1.0.3
  */
 
 public class Main {
+    static Scanner sc = new Scanner(System.in);
     public static void main(String[] args) {
         System.out.println("Welcome to the traffic management system!");
-        Scanner sc = new Scanner(System.in);
         System.out.print("Input the number of roads: ");
-        int numberOfRoads = sc.nextInt();
+        int numberOfRoads = getInput();
         System.out.print("Input the interval: ");
-        int intervals = sc.nextInt();
+        int intervals = getInput();
+        Traffic.clearConsole(sc, false);
 
-        int option;
+        Traffic traffic = new Traffic(numberOfRoads, intervals);
+        traffic.run(sc);
+    }
+
+    private static int getInput() {
+        int result = 0;
         do {
-            printMenu();
-            option = sc.nextInt();
-            switch (option) {
-                case 1 -> addRoad();
-                case 2 -> deleteRoad();
-                case 3 -> openSystem();
-                case 0 -> quit();
-                default -> System.out.println("Invalid option");
+            try {
+                result = Integer.parseInt(sc.nextLine());
+                if (result <= 0) {
+                    System.out.print("Error! Incorrect Input. Try again: ");
+                }
+            } catch (Exception e) {
+                System.out.print("Error! Incorrect Input. Try again: ");
             }
-        } while (option != 0);
-
-    }
-
-    private static void quit() {
-        System.out.println("Bye!");
-    }
-
-    private static void printMenu() {
-        System.out.println("""
-            Menu:
-            1. Add
-            2. Delete
-            3. System
-            0. Quit""");
-    }
-
-    public static void addRoad() {
-        System.out.println("Road added");
-    }
-
-    public static void deleteRoad() {
-        System.out.println("Road deleted");
-    }
-
-    public static void openSystem() {
-        System.out.println("System opened");
+        } while (result <= 0);
+        return result;
     }
 }
