@@ -6,16 +6,24 @@ import java.util.Scanner;
 /**
  * @author Mack_TB
  * @since 23/03/2024
- * @version 1.0.3
+ * @version 1.0.4
  */
 
-public class Traffic {
+public class TrafficLights {
     private int numberOfRoads;
     private int intervals;
+    private final Thread thread;
+    static boolean finished = false;
+    static boolean modeSystem = false;
 
-    public Traffic(int numberOfRoads, int intervals) {
+    public TrafficLights(int numberOfRoads, int intervals) {
         this.numberOfRoads = numberOfRoads;
         this.intervals = intervals;
+
+        thread = new Thread(new QueueThread(numberOfRoads, intervals));
+        thread.setName("QueueThread");
+        thread.start();
+
     }
 
     public void run(Scanner sc) {
@@ -30,13 +38,24 @@ public class Traffic {
                 continue;
             }
             switch (option) {
-                case 1 -> addRoad();
-                case 2 -> deleteRoad();
-                case 3 -> openSystem();
+                case 1 -> {
+                    addRoad();
+                    clearConsole(sc, true);
+                }
+                case 2 -> {
+                    deleteRoad();
+                    clearConsole(sc, true);
+                }
+                case 3 -> {
+                    openSystem(sc);
+                    clearConsole(sc, false);
+                }
                 case 0 -> quit();
-                default -> System.out.println("Incorrect option");
+                default -> {
+                    System.out.println("Incorrect option");
+                    clearConsole(sc, true);
+                }
             }
-            clearConsole(sc, true);
         } while (option != 0);
     }
 
@@ -51,6 +70,7 @@ public class Traffic {
 
     private void quit() {
         System.out.println("Bye!");
+        finished = true;
         System.exit(0);
     }
 
@@ -62,8 +82,15 @@ public class Traffic {
         System.out.println("Road deleted");
     }
 
-    public void openSystem() {
-        System.out.println("System opened");
+    public void openSystem(Scanner sc) {
+//        System.out.println("System opened");
+        modeSystem = true;
+        /*if (!thread.isAlive()) {
+            thread.start();
+        }*/
+        sc.nextLine();
+        modeSystem = false;
+
     }
 
     public static void clearConsole(Scanner sc, boolean newLine) {
