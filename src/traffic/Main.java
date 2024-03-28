@@ -37,12 +37,11 @@ public class Main {
     }
 
     private static void printMenu() {
-        System.out.println("""
-            Menu:
-            1. Add
-            2. Delete
-            3. System
-            0. Quit""");
+        System.out.println("Menu:\n" +
+                           "1. Add\n" +
+                           "2. Delete\n" +
+                           "3. System\n" +
+                           "0. Quit");
     }
 
     public static void addRoad() {
