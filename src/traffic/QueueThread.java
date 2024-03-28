@@ -3,14 +3,14 @@ package traffic;
 /**
  * @author Mack_TB
  * @since 23/03/2024
- * @version 1.0.5
+ * @version 1.0.6
  */
 
 public class QueueThread implements Runnable{
     private int passedTime = 0;
-    private int numberOfRoads;
-    private int intervals;
-    private CircularQueue circularQueue;
+    private final int numberOfRoads;
+    private final int intervals;
+    private final CircularQueue circularQueue;
 
     public QueueThread(int numberOfRoads,
                        int intervals) {
@@ -22,7 +22,6 @@ public class QueueThread implements Runnable{
     @Override
     public void run() {
         do {
-            ++passedTime;
             if (TrafficLights.modeSystem) {
                 System.out.println("! " + passedTime + "s. have passed since system startup !");
                 System.out.printf("! Number of roads: %d !%n", numberOfRoads);
@@ -30,6 +29,8 @@ public class QueueThread implements Runnable{
                 circularQueue.printRoads();
                 System.out.println("! Press \"Enter\" to open menu !");
             }
+            circularQueue.computeRemainingTimes();
+            ++passedTime;
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
