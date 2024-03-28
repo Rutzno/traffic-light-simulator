@@ -83,14 +83,9 @@ public class TrafficLights {
     }
 
     public void openSystem(Scanner sc) {
-//        System.out.println("System opened");
         modeSystem = true;
-        /*if (!thread.isAlive()) {
-            thread.start();
-        }*/
         sc.nextLine();
         modeSystem = false;
-
     }
 
     public static void clearConsole(Scanner sc, boolean newLine) {
