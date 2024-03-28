@@ -5,11 +5,12 @@ import java.util.Scanner;
 /**
  * @author Mack_TB
  * @since 23/03/2024
- * @version 1.0.5
+ * @version 1.0.6
  */
 
 public class Main {
     static Scanner sc = new Scanner(System.in);
+
     public static void main(String[] args) {
         System.out.println("Welcome to the traffic management system!");
         System.out.print("Input the number of roads: ");

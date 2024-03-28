@@ -6,12 +6,12 @@ import java.util.Scanner;
 /**
  * @author Mack_TB
  * @since 23/03/2024
- * @version 1.0.5
+ * @version 1.0.6
  */
 
 public class TrafficLights {
     private int numberOfRoads;
-    private int intervals;
+    static int intervals;
     private final QueueThread queueThread;
     static boolean finished = false;
     static boolean modeSystem = false;
@@ -19,7 +19,7 @@ public class TrafficLights {
 
     public TrafficLights(int numberOfRoads, int intervals) {
         this.numberOfRoads = numberOfRoads;
-        this.intervals = intervals;
+        TrafficLights.intervals = intervals;
 
         queueThread = new QueueThread(numberOfRoads, intervals);
         Thread thread = new Thread(queueThread, "QueueThread");
@@ -92,7 +92,6 @@ public class TrafficLights {
         }*/
         scanner.nextLine();
         modeSystem = false;
-
     }
 
     public static void clearConsole(boolean newLine) {
