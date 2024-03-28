@@ -2,6 +2,12 @@ package traffic;
 
 import java.util.Scanner;
 
+/**
+ * @author Mack_TB
+ * @since 23/03/2024
+ * @version 1.0.4
+ */
+
 public class QueueThread implements Runnable{
     Scanner scanner = new Scanner(System.in);
     private int passedTime = 0;
