@@ -6,22 +6,23 @@ import java.util.Scanner;
 /**
  * @author Mack_TB
  * @since 23/03/2024
- * @version 1.0.4
+ * @version 1.0.5
  */
 
 public class TrafficLights {
     private int numberOfRoads;
     private int intervals;
-    private final Thread thread;
+    private final QueueThread queueThread;
     static boolean finished = false;
     static boolean modeSystem = false;
+    static final Scanner scanner = new Scanner(System.in);
 
     public TrafficLights(int numberOfRoads, int intervals) {
         this.numberOfRoads = numberOfRoads;
         this.intervals = intervals;
 
-        thread = new Thread(new QueueThread(numberOfRoads, intervals));
-        thread.setName("QueueThread");
+        queueThread = new QueueThread(numberOfRoads, intervals);
+        Thread thread = new Thread(queueThread, "QueueThread");
         thread.start();
     }
 
@@ -33,26 +34,26 @@ public class TrafficLights {
                 option = Integer.parseInt(sc.nextLine());
             } catch (NumberFormatException e) {
                 System.out.println("Incorrect option");
-                clearConsole(sc, true);
+                clearConsole(true);
                 continue;
             }
             switch (option) {
                 case 1 -> {
                     addRoad();
-                    clearConsole(sc, true);
+                    clearConsole(true);
                 }
                 case 2 -> {
                     deleteRoad();
-                    clearConsole(sc, true);
+                    clearConsole(true);
                 }
                 case 3 -> {
-                    openSystem(sc);
-                    clearConsole(sc, false);
+                    openSystem();
+                    clearConsole(false);
                 }
                 case 0 -> quit();
                 default -> {
                     System.out.println("Incorrect option");
-                    clearConsole(sc, true);
+                    clearConsole(true);
                 }
             }
         } while (option != 0);
@@ -74,21 +75,28 @@ public class TrafficLights {
     }
 
     public void addRoad() {
-        System.out.println("Road added");
+        System.out.print("Input road name: ");
+        String roadName = scanner.nextLine();
+        queueThread.getCircularQueue().addRoad(roadName);
     }
 
     public void deleteRoad() {
-        System.out.println("Road deleted");
+        queueThread.getCircularQueue().deleteRoad();
     }
 
-    public void openSystem(Scanner sc) {
+    public void openSystem() {
+//        System.out.println("System opened");
         modeSystem = true;
-        sc.nextLine();
+        /*if (!thread.isAlive()) {
+            thread.start();
+        }*/
+        scanner.nextLine();
         modeSystem = false;
+
     }
 
-    public static void clearConsole(Scanner sc, boolean newLine) {
-        if (newLine) sc.nextLine();
+    public static void clearConsole(boolean newLine) {
+        if (newLine) scanner.nextLine();
         try {
             var clearCommand = System.getProperty("os.name").contains("Windows")
                     ? new ProcessBuilder("cmd", "/c", "cls")

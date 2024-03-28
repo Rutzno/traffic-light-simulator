@@ -5,7 +5,7 @@ import java.util.Scanner;
 /**
  * @author Mack_TB
  * @since 23/03/2024
- * @version 1.0.4
+ * @version 1.0.5
  */
 
 public class Main {
@@ -16,7 +16,7 @@ public class Main {
         int numberOfRoads = getInput();
         System.out.print("Input the interval: ");
         int intervals = getInput();
-        TrafficLights.clearConsole(sc, false);
+        TrafficLights.clearConsole(false);
 
         TrafficLights traffic = new TrafficLights(numberOfRoads, intervals);
         traffic.run(sc);
