@@ -23,7 +23,6 @@ public class TrafficLights {
         thread = new Thread(new QueueThread(numberOfRoads, intervals));
         thread.setName("QueueThread");
         thread.start();
-
     }
 
     public void run(Scanner sc) {
