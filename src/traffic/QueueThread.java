@@ -1,7 +1,5 @@
 package traffic;
 
-import java.util.Scanner;
-
 /**
  * @author Mack_TB
  * @since 23/03/2024
