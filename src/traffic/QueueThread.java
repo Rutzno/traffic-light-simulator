@@ -6,7 +6,7 @@ package traffic;
  * @version 1.0.6
  */
 
-public class QueueThread implements Runnable{
+public class QueueThread implements Runnable {
     private int passedTime = 0;
     private final int numberOfRoads;
     private final int intervals;

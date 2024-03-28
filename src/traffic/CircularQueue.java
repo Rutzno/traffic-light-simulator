@@ -7,8 +7,8 @@ package traffic;
  */
 
 public class CircularQueue {
-    private int front;
-    private int rear;
+    private int front; // head
+    private int rear;  // tail
     private final Road[] roads;
     private int countRoads = 0;
 
